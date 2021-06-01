@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<th:block th:include="${view}::title"></th:block>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<th:block th:include="${view}::css"></th:block>
+<link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logih/favicon-blue.png}"/>
+</head>
+
+<body>
+<!-- <th:block th:include="fragments/common/slide-menu::slide-menu"></th:block> -->
+<!-- <th:block th:include="fragments/common/menu-bar::menu-bar"></th:block> -->
+<th:block th:include="${view}::content"></th:block>
+<!-- <th:block th:include="fragments/common/footer::footer"></th:block> -->
+
+
+
+<th:block th:include="${view}::javascript"></th:block>
+</body>
+</html>
