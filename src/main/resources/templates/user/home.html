@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="css">
+	<th:block th:include="fragments/assets/common/css::css"></th:block>
+</th:block>
+
+<th:block th:fragment="javascript">
+	<th:block th:include="fragments/assets/common/js::javascript"></th:block>
+</th:block>
+
+<th:block th:fragment="title">
+	<title th:text="${title}">LogiH</title>
+</th:block>
+
+
+<th:block th:fragment="content">
+	<div class="container">
+		
+            <h2 class = "mt-4">Welcome HOME</h2>
+            <hr/>
+            <!-- Form levels error messages here -->
+            <p sec:authentication="principal"> </p>
+            
+      
+	</div>
+
+	
+</th:block>
+
+</html>
