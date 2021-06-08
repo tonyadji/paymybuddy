@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="css">
-<!-- CSS
+	<!-- CSS
 ================================================== -->
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"><link>
+	<link rel="stylesheet" type="text/css"
+		href="/webjars/bootstrap/css/bootstrap.min.css">
+	<link>
+	<style>
+.ml-auto .dropdown-menu {
+	left: auto !important;
+	right: 0px;
+}
+</style>
 </th:block>
 </html>

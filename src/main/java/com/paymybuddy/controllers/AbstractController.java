@@ -29,6 +29,8 @@ public abstract class AbstractController {
 		return getTitle();
 	}
 	
+	
+	
 	public abstract String getView();
 	
 	public abstract String getTitle();

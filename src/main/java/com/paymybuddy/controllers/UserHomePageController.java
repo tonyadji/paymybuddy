@@ -5,8 +5,11 @@ package com.paymybuddy.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.paymybuddy.controllers.interfaces.ActiveMenuController;
+import com.paymybuddy.utils.ModelUtils;
 import com.paymybuddy.utils.ViewUtils;
 
 /**
@@ -14,7 +17,7 @@ import com.paymybuddy.utils.ViewUtils;
  *
  */
 @Controller
-public class UserHomePageController extends AbstractController {
+public class UserHomePageController extends AbstractController implements ActiveMenuController{
 	
 	@GetMapping("/home")
 	public ModelAndView getUserHomePage() {
@@ -28,7 +31,13 @@ public class UserHomePageController extends AbstractController {
 
 	@Override
 	public String getTitle() {
-		return "Home";
+		return "page_home.title";
+	}
+
+	@ModelAttribute(ModelUtils.MODEL_ACTIVE_MENU)
+	@Override
+	public String getActiveMenu() {
+		return "home";
 	}
 
 }

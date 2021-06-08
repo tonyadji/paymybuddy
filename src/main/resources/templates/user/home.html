@@ -10,22 +10,23 @@
 </th:block>
 
 <th:block th:fragment="title">
-	<title th:text="${title}">LogiH</title>
+	<title th:text="#{${title}}">LogiH</title>
 </th:block>
 
 
 <th:block th:fragment="content">
+	<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
 	<div class="container">
-		
-            <h2 class = "mt-4">Welcome HOME</h2>
-            <hr/>
-            <!-- Form levels error messages here -->
-            <p sec:authentication="principal"> </p>
-            
-      
+
+		<h2 class="mt-4">Welcome HOME</h2>
+		<hr />
+		<!-- Form levels error messages here -->
+		<p sec:authentication="principal"></p>
+
+		<div class="row"></div>
 	</div>
 
-	
+
 </th:block>
 
 </html>

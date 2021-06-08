@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="menu-bar">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<form class="form-inline">
+			<button class="btn btn-success" type="button">PayMyBuddy</button>
+		</form>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" th:classappend="${active_menu == 'home'}?'active'">Home</a>
+			 </li>
+			 <li class="nav-item">
+				<a th:href="@{#{url.menu.transfer}}" href="#" class="nav-link" th:classappend="${active_menu == 'transfer'}?'active'">Transfer</a>
+			 </li>
+			 <li class="nav-item">
+				<a th:href="@{#{url.menu.profile}}" href="#" class="nav-link" th:classappend="${active_menu == 'profile'}?'active'">Profile</a>
+			 </li>
+			 <li class="nav-item">
+				<a th:href="@{#{url.menu.contact}}" href="#" class="nav-link" th:classappend="${active_menu == 'contact'}?'active'">Contact</a>
+			 </li>
+			 <li class="nav-item">
+				<a class="nav-link" th:href="@{#{url.menu.logoff}}" href="#">Log Off</a>
+			 </li>
+		</ul>
+	</nav>
+</th:block>
+</html>
