@@ -12,4 +12,6 @@ public class ExceptionMessageUtils {
 	private ExceptionMessageUtils() {}
 	
 	public static final String USER_ALREADY_EXISTS = "A user with that username already exists";
+	public static final String USER_NOT_FOUND = "User not found";
+	public static final String CONTACT_ALREADY_EXISTS = "This user is already in your contacts";
 }

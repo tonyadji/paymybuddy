@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="css">
+	<th:block th:include="fragments/assets/common/css::css"></th:block>
+</th:block>
+
+<th:block th:fragment="javascript">
+	<th:block th:include="fragments/assets/common/js::javascript"></th:block>
+</th:block>
+
+<th:block th:fragment="title">
+	<title th:text="#{${title}}">PMB</title>
+</th:block>
+
+
+<th:block th:fragment="content">
+	<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
+	<div class="container">
+
+		<h2 class="mt-4">Contacts</h2>
+		<hr />
+		<form action="#" method="post" th:action="@{#{url.form.contact}}"
+			th:object="${contact_form}">
+			<h4 class="mt-4">New Contact</h4>
+			<!-- Form levels error messages here -->
+
+			<div class="form-group row ">
+				<div class="col-sm-8">
+					<span class="text-danger" th:errors="*{global}"> </span>
+				</div>
+			</div>
+			<div class="form-group row ">
+				<label for="username" class="col-sm-2 col-form-label">Username</label>
+				<div class="col-sm-4">
+					<input th:field="*{username}" type="text" class="form-control"
+						placeholder="Username">
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger" th:errors="*{username}"> </span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+
+		</form>
+		<hr />
+		<h4 class="mt-4">My Contacts</h4>
+		<table class="table">
+			<thead class = "thead-light">
+		        <tr>
+		            <th class="text-left">Username</th>
+		            <th class="text-left">Added On</th>
+		        </tr>
+		    </thead>
+			<tbody>
+				<tr th:each="contact :${my_contacts}">
+		            <td th:text="${contact.added}">Name</td>
+		            <td th:text="${contact.createdDate}">Date</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<div class="row"></div>
+	</div>
+
+
+</th:block>
+
+</html>

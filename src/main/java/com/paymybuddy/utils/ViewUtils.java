@@ -20,4 +20,6 @@ public class ViewUtils {
 	public static final String VIEW_USER_HOME_PAGE = "user/home";
 
 	public static final String VIEW_INDEX = "index";
+
+	public static final String VIEW_USER_CONTACT_PAGE = "user/contact";
 }
