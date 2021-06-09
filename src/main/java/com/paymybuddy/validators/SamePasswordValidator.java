@@ -2,7 +2,7 @@ package com.paymybuddy.validators;
 
 import javax.validation.ConstraintValidatorContext;
 
-import com.paymybuddy.form.RegisterForm;
+import com.paymybuddy.ui.form.RegisterForm;
 
 import lombok.extern.slf4j.Slf4j;
 

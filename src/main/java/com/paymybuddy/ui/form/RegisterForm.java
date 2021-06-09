@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.paymybuddy.form;
+package com.paymybuddy.ui.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

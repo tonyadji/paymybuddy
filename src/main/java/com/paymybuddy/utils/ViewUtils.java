@@ -22,4 +22,6 @@ public class ViewUtils {
 	public static final String VIEW_INDEX = "index";
 
 	public static final String VIEW_USER_CONTACT_PAGE = "user/contact";
+
+	public static final String VIEW_USER_PROFILE_PAGE = "user/profile";
 }

@@ -15,8 +15,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.paymybuddy.entities.PMBUser;
 import com.paymybuddy.exceptions.UserAlreadyExistsException;
-import com.paymybuddy.form.RegisterForm;
 import com.paymybuddy.services.PMBUserService;
+import com.paymybuddy.ui.form.RegisterForm;
 import com.paymybuddy.utils.ModelUtils;
 import com.paymybuddy.utils.SecurityUtils;
 import com.paymybuddy.utils.ViewUtils;

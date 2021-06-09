@@ -22,4 +22,8 @@ public class ModelUtils {
 	public static final String MODEL_CONTACT_FORM = "contact_form";
 
 	public static final String MODEL_MY_CONTACTS = "my_contacts";
+
+	public static final String MODEL_ACCOUNT_DEPOSIT_FORM = "account_deposit_form";
+
+	public static final String MODEL_MY_PROFILE = "my_profile";
 }

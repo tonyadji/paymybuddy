@@ -15,10 +15,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.paymybuddy.entities.Account;
 import com.paymybuddy.entities.PMBUser;
 import com.paymybuddy.exceptions.UserAlreadyExistsException;
-import com.paymybuddy.form.RegisterForm;
+import com.paymybuddy.repositories.AccountRepository;
 import com.paymybuddy.repositories.PMBUserRepository;
+import com.paymybuddy.ui.form.RegisterForm;
 import com.paymybuddy.utils.ExceptionMessageUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +31,9 @@ class PMBUserServiceTest {
 
 	@Mock
 	private PMBUserRepository userRepository;
+	
+	@Mock
+	private AccountRepository accountRepository;
 	
 	@Mock
 	private BCryptPasswordEncoder encoder;
@@ -87,6 +92,7 @@ class PMBUserServiceTest {
 		when(userRepository.findByUsername(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
 		when(encoder.encode(ArgumentMatchers.anyString())).thenReturn("paoeri_kljamle");
 		when(userRepository.save(ArgumentMatchers.any(PMBUser.class))).thenReturn(new PMBUser());
+		when(accountRepository.save(ArgumentMatchers.any(Account.class))).thenReturn(new Account());
 		// act
 		final PMBUser result = service.createUser(form);
 		

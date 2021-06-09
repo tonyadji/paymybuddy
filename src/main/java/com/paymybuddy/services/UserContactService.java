@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paymybuddy.entities.PMBUser;
 import com.paymybuddy.entities.UserContact;
@@ -21,6 +22,7 @@ import com.paymybuddy.utils.ExceptionMessageUtils;
  *
  */
 @Service
+@Transactional
 public class UserContactService {
 	
 	private final UserContactRepository userContactRepository;
