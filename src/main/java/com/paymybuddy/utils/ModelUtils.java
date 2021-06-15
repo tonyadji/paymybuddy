@@ -26,4 +26,6 @@ public class ModelUtils {
 	public static final String MODEL_ACCOUNT_DEPOSIT_FORM = "account_deposit_form";
 
 	public static final String MODEL_MY_PROFILE = "my_profile";
+
+	public static final String MODEL_ACCOUNT_TRANSFER_FORM = "transfer_form";
 }

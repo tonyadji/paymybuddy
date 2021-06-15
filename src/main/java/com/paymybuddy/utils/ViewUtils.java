@@ -24,4 +24,6 @@ public class ViewUtils {
 	public static final String VIEW_USER_CONTACT_PAGE = "user/contact";
 
 	public static final String VIEW_USER_PROFILE_PAGE = "user/profile";
+
+	public static final String VIEW_USER_TRANSFER_PAGE = "user/transfer";
 }
