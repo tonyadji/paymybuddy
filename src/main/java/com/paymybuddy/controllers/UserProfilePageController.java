@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.paymybuddy.controllers.interfaces.ActiveMenuController;
+import com.paymybuddy.exceptions.AccountNotFoundException;
+import com.paymybuddy.services.AccountService;
 import com.paymybuddy.services.ProfileService;
 import com.paymybuddy.ui.ProfilUI;
 import com.paymybuddy.ui.form.AccountDepositForm;
@@ -32,8 +34,11 @@ public class UserProfilePageController extends AbstractController implements Act
 	
 	private final ProfileService profilService;
 	
-	public UserProfilePageController(ProfileService profilService) {
+	private final AccountService accountService;
+	
+	public UserProfilePageController(ProfileService profilService, AccountService accountService) {
 		this.profilService = profilService;
+		this.accountService = accountService;
 	}
 	
 	@GetMapping("/profile")
@@ -51,7 +56,12 @@ public class UserProfilePageController extends AbstractController implements Act
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
 		}
-		
+		try {
+			accountService.deposit(form.getAmount());
+		}catch (AccountNotFoundException | IllegalArgumentException e) {
+			bindingResult.rejectValue("amount", "", e.getMessage());
+			return super.getRequest();
+		}		
 		
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("/profile");
