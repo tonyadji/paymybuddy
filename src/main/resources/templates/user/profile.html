@@ -54,6 +54,7 @@
 			<thead class = "thead-light">
 		        <tr>
 		            <th class="text-left">Username</th>
+		            <th class="text-left">Account Number</th>
 		            <th class="text-left">Contacts</th>
 		            <th class="text-left">Balance</th>
 		        </tr>
@@ -61,7 +62,8 @@
 			<tbody>
 				<tr>
 		            <td th:text="${my_profile.username}">Username@pmb.com</td>
-		            <td th:text="${my_profile.contacts}">65</td>
+		            <td th:text="${my_profile.accountNumber}">Username@pmb.com</td>
+		            <td th:text="${my_profile.contacts.size()}">65</td>
 		            <td th:text="${my_profile.balance}">17000</td>
 				</tr>
 				

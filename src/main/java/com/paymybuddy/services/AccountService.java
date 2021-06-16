@@ -51,14 +51,17 @@ public class AccountService {
 		Optional<Account> oAccount = accountRepository.findByOwnerUsername(username);
 		if (oAccount.isPresent()) {
 			final Account account = oAccount.get();
-			account.setBalance(amount.add(account.getBalance()));
+			final BigDecimal comission = calculateComission(amount);
+			final BigDecimal amountToDeposit = amount.subtract(comission);
+			account.setBalance(amountToDeposit.add(account.getBalance()));
 			log.debug("Self deposit {} - Amount of {}", username, amount);
 			final Transaction transaction = new Transaction();
 			transaction.setTransactionType(TransactionTypeEnum.DEPOSIT);
 			transaction.setAmount(amount);
+			transaction.setAccountNumber(account.getAccountNumber());
 			transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
 			transaction.setReference(GenerateCodeUtils.generateCode());
-			transaction.setComission(TransactionFeeUtils.DEPOSIT_FEES);
+			transaction.setComission(comission);
 			transactionRepository.save(transaction);
 			return;
 		}
@@ -75,16 +78,19 @@ public class AccountService {
 			if (oReceiverAccount.isPresent()) {
 				final Account senderAccount = oSenderAccount.get();
 				final Account receiverAccount = oReceiverAccount.get();
-				final BigDecimal amountDeducted = amount.add(TransactionFeeUtils.TRANSFER_FEES);
+				final BigDecimal comission = calculateComission(amount);
+				final BigDecimal amountDeducted = amount.add(comission);
 				if (senderAccount.getBalance().compareTo(amountDeducted) >= 0) {
 					senderAccount.setBalance(senderAccount.getBalance().subtract(amountDeducted));
 					receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
 					final Transaction transaction = new Transaction();
-					transaction.setTransactionType(TransactionTypeEnum.DEPOSIT);
+					transaction.setTransactionType(TransactionTypeEnum.TRANSFER);
+					transaction.setAccountNumber(senderAccount.getAccountNumber());
 					transaction.setAmount(amount);
 					transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
 					transaction.setReference(GenerateCodeUtils.generateCode());
-					transaction.setComission(TransactionFeeUtils.TRANSFER_FEES);
+					transaction.setComission(comission);
+					transaction.setReceiver(userRepository.findByUsername(receiverUsername).orElse(null));
 					transactionRepository.save(transaction);
 					return;
 				}
@@ -93,5 +99,9 @@ public class AccountService {
 			throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
 		}
 		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
+	}
+	
+	public BigDecimal calculateComission(BigDecimal amount) {
+		return amount.multiply(TransactionFeeUtils.TRANSACTION_FEES).divide(BigDecimal.valueOf(100));
 	}
 }

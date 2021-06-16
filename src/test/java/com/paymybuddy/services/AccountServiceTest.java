@@ -27,6 +27,7 @@ import com.paymybuddy.repositories.AccountRepository;
 import com.paymybuddy.repositories.PMBUserRepository;
 import com.paymybuddy.repositories.TransactionRepository;
 import com.paymybuddy.utils.ExceptionMessageUtils;
+import com.paymybuddy.utils.TransactionFeeUtils;
 
 /**
  * @author tonys
@@ -67,9 +68,9 @@ class AccountServiceTest {
 		when(userRepository.findByUsername(ArgumentMatchers.anyString())).thenReturn(Optional.of(new PMBUser()));
 		// act
 		service.deposit(BigDecimal.valueOf(3000));
-
+		final BigDecimal comission = BigDecimal.valueOf(3000).multiply(TransactionFeeUtils.TRANSACTION_FEES).divide(BigDecimal.valueOf(100));
 		// assert
-		assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(3000));
+		assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(3000).subtract(comission));
 	}
 
 	@Test

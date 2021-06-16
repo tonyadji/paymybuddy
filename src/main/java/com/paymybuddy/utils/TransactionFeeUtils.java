@@ -11,6 +11,5 @@ import java.math.BigDecimal;
  */
 public class TransactionFeeUtils {
 
-	public static final BigDecimal DEPOSIT_FEES = BigDecimal.ZERO;
-	public static final BigDecimal TRANSFER_FEES = BigDecimal.ZERO;
+	public static final BigDecimal TRANSACTION_FEES = BigDecimal.valueOf(0.5);
 }

@@ -3,6 +3,8 @@
  */
 package com.paymybuddy.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.paymybuddy.controllers.interfaces.ActiveMenuController;
+import com.paymybuddy.entities.Transaction;
 import com.paymybuddy.exceptions.AccountNotFoundException;
 import com.paymybuddy.exceptions.InsufficientBalanceException;
 import com.paymybuddy.services.AccountService;
 import com.paymybuddy.services.ProfileService;
+import com.paymybuddy.services.TransactionService;
 import com.paymybuddy.ui.ProfilUI;
 import com.paymybuddy.ui.form.AccountTransferForm;
 import com.paymybuddy.utils.ModelUtils;
@@ -37,9 +41,12 @@ public class UserTransferPageController extends AbstractController implements Ac
 	
 	private final AccountService accountService;
 	
-	public UserTransferPageController(ProfileService profilService, AccountService accountService) {
+	private final TransactionService transactionService;
+	
+	public UserTransferPageController(ProfileService profilService, AccountService accountService, TransactionService transactionService) {
 		this.profilService = profilService;
 		this.accountService = accountService;
+		this.transactionService = transactionService;
 	}
 	
 	@GetMapping("/transfer")
@@ -48,7 +55,7 @@ public class UserTransferPageController extends AbstractController implements Ac
 		return super.getRequest();
 	}
 
-	@PostMapping("/transfer")
+	@PostMapping("/transfer/to-contact")
 	public ModelAndView handleRegistration(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_TRANSFER_FORM) AccountTransferForm form,
 			BindingResult bindingResult) {
 		
@@ -96,6 +103,11 @@ public class UserTransferPageController extends AbstractController implements Ac
 	@ModelAttribute(ModelUtils.MODEL_MY_PROFILE)
 	public ProfilUI myProfile() {
 		return profilService.getProfileInformations();
+	}
+	
+	@ModelAttribute(ModelUtils.MODEL_MY_TRANSACTIONS)
+	public List<Transaction> getMyTransactions(){
+		return transactionService.getTransactionHistory();
 	}
 	
 }

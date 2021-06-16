@@ -39,6 +39,10 @@ public class Transaction extends AbstractEntity {
 	@NotEmpty	
 	private String reference;
 
+	@Column(name = "account_number", unique = false)
+	@NotEmpty
+	private String accountNumber;
+	
 	@NotNull
 	private BigDecimal amount;
 	
@@ -50,11 +54,11 @@ public class Transaction extends AbstractEntity {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "initiator_id", referencedColumnName = "id", nullable = false)
 	private PMBUser initiator;
 	
 	@ManyToOne
-	@JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = true)
 	private PMBUser receiver;
 	
 	public Transaction() {

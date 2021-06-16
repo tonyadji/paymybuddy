@@ -28,4 +28,6 @@ public class ModelUtils {
 	public static final String MODEL_MY_PROFILE = "my_profile";
 
 	public static final String MODEL_ACCOUNT_TRANSFER_FORM = "transfer_form";
+
+	public static final String MODEL_MY_TRANSACTIONS = "my_transactions";
 }

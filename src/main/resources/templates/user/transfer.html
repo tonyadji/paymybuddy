@@ -18,56 +18,144 @@
 	<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
 	<div class="container">
 
-		<h2 class="mt-4">Transfer</h2>
+		<h2 class="mt-4">Transfer </h2>
 		<hr />
-		<form action="#" method="post" th:action="@{#{url.form.profile.account_transfer}}"
-			th:object="${account_transfer_form}">
-			<h4 class="mt-4">My account</h4>
-			<!-- Form levels error messages here -->
+		<div class="row">
+			<div class="col-sm-6">
+				<form action="#" method="post"
+					th:action="@{#{url.form.transfer.to_contact}}"
+					th:object="${transfer_form}">
+					<h4 class="mt-4">Transfer to a contact</h4>
+					<!-- Form levels error messages here -->
 
-			<div class="form-group row ">
-				<div class="col-sm-8">
-					<span class="text-danger" th:errors="*{global}"> </span>
-				</div>
-			</div>
-			<div class="form-group row ">
-				<label for="amount" class="col-sm-2 col-form-label">Transfer</label>
-				<div class="col-sm-4">
-					<input th:field="*{amount}" type="number" step="0.01" min="0" class="form-control"
-						placeholder="Amount">
-				</div>
-				<div class="col-sm-4">
-					<span class="text-danger" th:errors="*{amount}"> </span>
-				</div>
-			</div>
+					<div class="form-group row ">
+						<div class="col-sm-8">
+							<span class="text-danger" th:errors="*{global}"> </span>
+						</div>
+					</div>
+					<div class="form-group row ">
+						<div class="col-sm-6">
+							<input th:field="*{amount}" type="number" step="0.01" min="0"
+								class="form-control" placeholder="Amount">
+						</div>
 
-			<div class="form-group row">
-				<div class="col-sm-10">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</div>
+						<div class="col-sm-6">
+							<select class="form-control" th:field="*{receiverUsername}"
+								required="required">
+								<option value="" selected="selected">Choose a contact</option>
+								<option th:each="contact: ${my_profile.contacts}"
+									th:value="${contact}" th:text="${contact}"></option>
+							</select>
+						</div>
 
-		</form>
+					</div>
+					<div class="form-group row">
+
+						<div class="col-sm-4">
+							<span class="text-danger" th:errors="*{amount}"> </span>
+						</div>
+						<div class="col-sm-4">
+							<span class="text-danger" th:errors="*{receiverUsername}">
+							</span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+			<div class="col-sm-6">
+				<form action="#" method="post"
+					th:action="@{#{url.form.transfer.to_bank_account}}"
+					th:object="${transfer_form}">
+					<h4 class="mt-4">Transfer to bank account</h4>
+					<!-- Form levels error messages here -->
+
+					<div class="form-group row ">
+						<div class="col-sm-8">
+							<span class="text-danger" th:errors="*{global}"> </span>
+						</div>
+					</div>
+					<div class="form-group row ">
+						<div class="col-sm-6">
+							<input th:field="*{amount}" type="number" step="0.01" min="0"
+								class="form-control" placeholder="Amount">
+						</div>
+
+						<div class="col-sm-6">
+							<select class="form-control" th:field="*{receiverUsername}"
+								required="required">
+								<option value="" selected="selected">Choose a contact</option>
+								<option th:each="contact: ${my_profile.contacts}"
+									th:value="${contact}" th:text="${contact}"></option>
+							</select>
+						</div>
+
+					</div>
+					<div class="form-group row">
+
+						<div class="col-sm-4">
+							<span class="text-danger" th:errors="*{amount}"> </span>
+						</div>
+						<div class="col-sm-4">
+							<span class="text-danger" th:errors="*{receiverUsername}">
+							</span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
 		<hr />
 		<h4 class="mt-4">My Informations</h4>
 		<table class="table">
-			<thead class = "thead-light">
-		        <tr>
-		            <th class="text-left">Username</th>
-		            <th class="text-left">Contacts</th>
-		            <th class="text-left">Balance</th>
-		        </tr>
-		    </thead>
+			<thead class="thead-light">
+				<tr>
+					<th class="text-left">Username</th>
+					<th class="text-left">Account Number</th>
+					<th class="text-left">Balance</th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-		            <td th:text="${my_profile.username}">Username@pmb.com</td>
-		            <td th:text="${my_profile.contacts}">65</td>
-		            <td th:text="${my_profile.balance}">17000</td>
+					<td th:text="${my_profile.username}">Username@pmb.com</td>
+					<td th:text="${my_profile.accountNumber}">Username@pmb.com</td>
+					<td th:text="${my_profile.balance}">17000</td>
 				</tr>
-				
+
 			</tbody>
 		</table>
-		
+		<hr />
+		<h4 class="mt-4">My Transactions</h4>
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th class="text-left">Transaction Type</th>
+					<th class="text-left">Amount</th>
+					<th class="text-left">Receiver</th>
+					<th class="text-left">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="transaction: ${my_transactions}">
+					<td th:text="${transaction.transactionType}">65</td>
+					<td th:text="${transaction.amount}">17000</td>
+					<td th:text="${transaction.receiver?.username}">17000</td>
+					<td th:text="${transaction.createdDate}">17000</td>
+				</tr>
+
+			</tbody>
+		</table>
 		<div class="row"></div>
 	</div>
 

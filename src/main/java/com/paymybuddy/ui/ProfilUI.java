@@ -4,6 +4,7 @@
 package com.paymybuddy.ui;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,9 @@ public class ProfilUI {
 
 	private String username;
 	
-	private int contacts;
+	private String accountNumber;
+	
+	private List<String> contacts;
 	
 	private BigDecimal balance;
 	

@@ -25,7 +25,9 @@ public class GenerateCodeUtils {
 			e.printStackTrace();
 			return "0000000000";
 		}
-		return randomizer.ints(length, 1, 10).toString();
+		StringBuilder result = new StringBuilder();
+		randomizer.ints(length, 1, 10).forEach(result::append);
+		return result.toString();
 	}
 	
 	public static String generateCode() {
