@@ -10,6 +10,6 @@ package com.paymybuddy.entities.enumerations;
 public enum TransactionTypeEnum {
 
 	DEPOSIT,
-	TRANSFER,
-	WITHDRAWAL
+	CONTACT_TRANSFER,
+	BANK_TRANSFER
 }

@@ -23,7 +23,8 @@ import com.paymybuddy.services.AccountService;
 import com.paymybuddy.services.ProfileService;
 import com.paymybuddy.services.TransactionService;
 import com.paymybuddy.ui.ProfilUI;
-import com.paymybuddy.ui.form.AccountTransferForm;
+import com.paymybuddy.ui.form.TransferToAccountForm;
+import com.paymybuddy.ui.form.TransferToBankAccountForm;
 import com.paymybuddy.utils.ModelUtils;
 import com.paymybuddy.utils.ViewUtils;
 
@@ -56,10 +57,10 @@ public class UserTransferPageController extends AbstractController implements Ac
 	}
 
 	@PostMapping("/transfer/to-contact")
-	public ModelAndView handleRegistration(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_TRANSFER_FORM) AccountTransferForm form,
+	public ModelAndView handleTranferToContact(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_TRANSFER_FORM) TransferToAccountForm form,
 			BindingResult bindingResult) {
 		
-		log.debug("[POST] /transfer");
+		log.debug("[POST] /transfer/to-contact");
 		
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
@@ -73,6 +74,31 @@ public class UserTransferPageController extends AbstractController implements Ac
 			bindingResult.rejectValue("amount", "", e.getMessage());
 			return super.getRequest();
 		}		
+		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("/transfer");
+		return new ModelAndView(redirectView);
+	}
+	
+	@PostMapping("/transfer/to-bank-account")
+	public ModelAndView handleTransferToBankAccount(@Valid @ModelAttribute(ModelUtils.MODEL_BANK_ACCOUNT_TRANSFER_FORM) TransferToBankAccountForm form,
+			BindingResult bindingResult) {
+		
+		log.debug("[POST] /transfer/to-bank-account");
+		
+		if(bindingResult.hasErrors()) {
+			return super.getRequest();
+		}
+		
+		try {
+			accountService.bankTransfer(form.getBankAccount(),form.getAmount());
+		}catch (AccountNotFoundException e) {
+			bindingResult.rejectValue("receiverUsername", "", e.getMessage());
+			return super.getRequest();
+		}catch (InsufficientBalanceException | IllegalArgumentException e) {
+			bindingResult.rejectValue("amount", "", e.getMessage());
+			return super.getRequest();
+		}
 		
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("/transfer");
@@ -96,8 +122,13 @@ public class UserTransferPageController extends AbstractController implements Ac
 	}
 
 	@ModelAttribute(ModelUtils.MODEL_ACCOUNT_TRANSFER_FORM)
-	public AccountTransferForm accountTransferForm() {
-		return new AccountTransferForm();
+	public TransferToAccountForm transferToAccountForm() {
+		return new TransferToAccountForm();
+	}
+	
+	@ModelAttribute(ModelUtils.MODEL_BANK_ACCOUNT_TRANSFER_FORM)
+	public TransferToBankAccountForm transferToBankAccountForm() {
+		return new TransferToBankAccountForm();
 	}
 	
 	@ModelAttribute(ModelUtils.MODEL_MY_PROFILE)

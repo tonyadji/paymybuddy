@@ -84,7 +84,7 @@ public class AccountService {
 					senderAccount.setBalance(senderAccount.getBalance().subtract(amountDeducted));
 					receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
 					final Transaction transaction = new Transaction();
-					transaction.setTransactionType(TransactionTypeEnum.TRANSFER);
+					transaction.setTransactionType(TransactionTypeEnum.CONTACT_TRANSFER);
 					transaction.setAccountNumber(senderAccount.getAccountNumber());
 					transaction.setAmount(amount);
 					transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
@@ -100,7 +100,33 @@ public class AccountService {
 		}
 		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
 	}
-	
+
+	public void bankTransfer(String bankAccount, BigDecimal amount) {
+		if (amount.compareTo(BigDecimal.ZERO) <= 0)
+			throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
+		final String username = SecurityUtils.getAuthUserName();
+		Optional<Account> oInitiator = accountRepository.findByOwnerUsername(username);
+		if (oInitiator.isPresent()) {
+			final Account senderAccount = oInitiator.get();
+			final BigDecimal comission = calculateComission(amount);
+			final BigDecimal amountDeducted = amount.add(comission);
+			if (senderAccount.getBalance().compareTo(amountDeducted) >= 0) {
+				senderAccount.setBalance(senderAccount.getBalance().subtract(amountDeducted));
+				final Transaction transaction = new Transaction();
+				transaction.setTransactionType(TransactionTypeEnum.BANK_TRANSFER);
+				transaction.setAccountNumber(senderAccount.getAccountNumber());
+				transaction.setAmount(amount);
+				transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
+				transaction.setReference(GenerateCodeUtils.generateCode());
+				transaction.setComission(comission);
+				transactionRepository.save(transaction);
+				return;
+			}
+			throw new InsufficientBalanceException(ExceptionMessageUtils.INSUFFICIENT_BALANCE);
+		}
+		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
+	}
+
 	public BigDecimal calculateComission(BigDecimal amount) {
 		return amount.multiply(TransactionFeeUtils.TRANSACTION_FEES).divide(BigDecimal.valueOf(100));
 	}

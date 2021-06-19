@@ -17,11 +17,11 @@ import lombok.Setter;
  *
  */
 @NoArgsConstructor @Getter @Setter
-public class AccountTransferForm {
+public class TransferToBankAccountForm {
 
 	@NotNull
 	private BigDecimal amount;
 	
 	@NotEmpty
-	private String receiverUsername;
+	private String bankAccount;
 }
