@@ -15,6 +15,7 @@
 
 
 <th:block th:fragment="content">
+	<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
 	<div class="container">
 		<form action="#" method="post" th:action="@{#{url.form.login}}" >
             <h2 class = "mt-4">Login</h2>
@@ -47,7 +48,7 @@
                </div>
             </div>
                              
-            
+            <p>If you don't have an account, please <a th:href="@{#{url.form.register}}" href="#">Register</a> </p>
             <div class = "form-group row">
                <div class = "col-sm-10">
                   <button type = "submit" class = "btn btn-primary">Submit</button>

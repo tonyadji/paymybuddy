@@ -41,6 +41,11 @@ public class RegisterController extends AbstractController {
 	public ModelAndView getRegisterPage() {
 		
 		log.debug("[GET] /register");
+		if(SecurityUtils.isAuthenticated()) {
+			RedirectView redirectView = new RedirectView();
+			redirectView.setUrl("/home");
+			return new ModelAndView(redirectView);
+		}
 		return super.getRequest();
 	}
 

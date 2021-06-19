@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.failureUrl("/login?error=true")		
 		.and()
 		.logout()
+		.clearAuthentication(true)
 		.invalidateHttpSession(true)
 		.logoutSuccessUrl("/login").deleteCookies("JSESSIONID")		
 		.and()

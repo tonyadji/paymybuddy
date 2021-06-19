@@ -6,6 +6,7 @@ package com.paymybuddy.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +36,11 @@ public class SecurityUtils {
 	
 	public static boolean isAuthenticated() {
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return auth != null;
+		try {
+			return ! (auth instanceof AnonymousAuthenticationToken);
+		}catch (Exception e) {
+			return false;
+		}
 	}
 	
 	public static void updateSecurityContext(PMBUser user) {

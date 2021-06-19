@@ -20,8 +20,23 @@
 
 		<h2 class="mt-4">Welcome HOME</h2>
 		<hr />
-		<!-- Form levels error messages here -->
-		<p sec:authentication="principal"></p>
+		<div class="row">
+			<div class="col-sm-6">
+				<a th:href="@{#{url.menu.transfer}}" href="#"> <button class="btn-menu"> <i class="fa fa-money"></i>Transfer</button></a>
+			</div>
+			<div class="col-sm-6">
+				<a th:href="@{#{url.menu.profile}}" href="#"> <button class="btn-menu"> <i class="fa fa-user-o"></i>Profil</button></a>
+			</div>
+		</div>
+		<p> </p>
+		<div class="row">
+			<div class="col-sm-6">
+				<a th:href="@{#{url.menu.contact}}" href="#"> <button class="btn-menu"> <i class="fa fa-address-book"></i>Contact</button></a>
+			</div>
+			<div class="col-sm-6">
+				<a th:href="@{#{url.menu.logoff}}" href="#"> <button class="btn-menu"> <i class="fa fa-power-off"></i>Log Off</button></a>
+			</div>
+		</div>
 
 		<div class="row"></div>
 	</div>

@@ -15,6 +15,7 @@
 
 
 <th:block th:fragment="content">
+<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
 	<div class="container">
 		<form action="#" method="post" th:action="@{#{url.form.register}}" th:object="${register_form}">
             <h2 class = "mt-4">Register</h2>
