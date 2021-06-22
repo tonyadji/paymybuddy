@@ -1,8 +1,14 @@
 /*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     22/06/2021 12:38:21                          */
+/* Created on:     22/06/2021 13:09:24                          */
 /*==============================================================*/
 
+
+
+DROP DATABASE if EXISTS pay_my_buddy;
+
+CREATE DATABASE pay_my_buddy;
+
+USE pay_my_buddy;
 
 drop table if exists pmb_account;
 
@@ -19,13 +25,21 @@ create table pmb_account
 (
    id                   int not null,
    owner_id             int not null,
-   accountNumber        varchar(10) not null,
-   balance              BigDecimal not null,
+   account_number        varchar(10) not null,
+   balance              DECIMAL not null,
    createdDate          DateTime not null,
    createdBy            varchar(50) not null,
    modifiedDate         DateTime,
    modifiedBy           varchar(50),
    primary key (id)
+);
+
+/*==============================================================*/
+/* Index: INDEX_ACCOUNT_NUMBER                                  */
+/*==============================================================*/
+create unique index INDEX_ACCOUNT_NUMBER on pmb_account
+(
+   account_number
 );
 
 /*==============================================================*/
@@ -39,8 +53,8 @@ create table pmb_transaction
    account_number       varchar(10) not null,
    reference            varchar(30) not null,
    transactionType      varchar(30) not null,
-   commission           BigDecimal,
-   amount               BigDecimal,
+   commission           DECIMAL not null,
+   amount               DECIMAL not null,
    description          varchar(100),
    createdDate          DateTime not null,
    createdBy            varchar(50) not null,
@@ -84,7 +98,7 @@ alter table pmb_account add constraint FK_Association_1 foreign key (owner_id)
       references pmb_user (id) on delete restrict on update restrict;
 
 alter table pmb_transaction add constraint FK_Association_2 foreign key (account_number)
-      references pmb_account (id) on delete restrict on update restrict;
+      references pmb_account (account_number) on delete restrict on update restrict;
 
 alter table pmb_transaction add constraint FK_Association_3 foreign key (initiator)
       references pmb_user (id) on delete restrict on update restrict;
