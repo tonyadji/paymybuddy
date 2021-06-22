@@ -21,7 +21,7 @@ import lombok.ToString;
  * @author tonys
  *
  */
-@Table(name = "user_account")
+@Table(name = "pmb_account")
 @Entity
 @Getter @Setter @ToString
 public class Account extends AbstractEntity {

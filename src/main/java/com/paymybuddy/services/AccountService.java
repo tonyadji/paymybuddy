@@ -22,15 +22,12 @@ import com.paymybuddy.utils.GenerateCodeUtils;
 import com.paymybuddy.utils.SecurityUtils;
 import com.paymybuddy.utils.TransactionFeeUtils;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author tonys
  *
  */
 @Service
 @Transactional
-@Slf4j
 public class AccountService {
 
 	private final AccountRepository accountRepository;
@@ -45,16 +42,18 @@ public class AccountService {
 	}
 
 	public void deposit(BigDecimal amount) {
-		if (amount.compareTo(BigDecimal.ZERO) <= 0)
-			throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
+		//si le montant est négatif, lever une exception
+		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
 		final String username = SecurityUtils.getAuthUserName();
+		//rechercher le compte de l'utilisateur connecté
 		Optional<Account> oAccount = accountRepository.findByOwnerUsername(username);
 		if (oAccount.isPresent()) {
+			//créditer le compte de l'utilisateur du montant moins la comission
 			final Account account = oAccount.get();
 			final BigDecimal comission = calculateComission(amount);
 			final BigDecimal amountToDeposit = amount.subtract(comission);
 			account.setBalance(amountToDeposit.add(account.getBalance()));
-			log.debug("Self deposit {} - Amount of {}", username, amount);
+			//enregistrer la transaction
 			final Transaction transaction = new Transaction();
 			transaction.setTransactionType(TransactionTypeEnum.DEPOSIT);
 			transaction.setAmount(amount);
@@ -69,17 +68,20 @@ public class AccountService {
 	}
 
 	public void transfer(String receiverUsername, BigDecimal amount) {
-		if (amount.compareTo(BigDecimal.ZERO) <= 0)
-			throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
+		//si le montant est négatif, lever une exception
+		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
 		final String username = SecurityUtils.getAuthUserName();
+		//rechercher le compte de l'utilisateur connecté
 		Optional<Account> oSenderAccount = accountRepository.findByOwnerUsername(username);
 		if (oSenderAccount.isPresent()) {
+			//recherché le compte du destinataire
 			Optional<Account> oReceiverAccount = accountRepository.findByOwnerUsername(receiverUsername);
 			if (oReceiverAccount.isPresent()) {
 				final Account senderAccount = oSenderAccount.get();
 				final Account receiverAccount = oReceiverAccount.get();
 				final BigDecimal comission = calculateComission(amount);
 				final BigDecimal amountDeducted = amount.add(comission);
+				//vérifier que le solde de l'émetteur est suffisant avant d'effectuer la transaction
 				if (senderAccount.getBalance().compareTo(amountDeducted) >= 0) {
 					senderAccount.setBalance(senderAccount.getBalance().subtract(amountDeducted));
 					receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
@@ -102,8 +104,8 @@ public class AccountService {
 	}
 
 	public void bankTransfer(String bankAccount, BigDecimal amount) {
-		if (amount.compareTo(BigDecimal.ZERO) <= 0)
-			throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
+		//si le montant est négatif, lever une exception
+		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
 		final String username = SecurityUtils.getAuthUserName();
 		Optional<Account> oInitiator = accountRepository.findByOwnerUsername(username);
 		if (oInitiator.isPresent()) {
@@ -119,6 +121,7 @@ public class AccountService {
 				transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
 				transaction.setReference(GenerateCodeUtils.generateCode());
 				transaction.setComission(comission);
+				transaction.setDescription(TransactionTypeEnum.BANK_TRANSFER+" to "+bankAccount);
 				transactionRepository.save(transaction);
 				return;
 			}

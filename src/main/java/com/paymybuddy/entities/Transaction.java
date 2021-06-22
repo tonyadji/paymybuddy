@@ -49,6 +49,8 @@ public class Transaction extends AbstractEntity {
 	@NotNull
 	private BigDecimal comission;
 	
+	private String description;
+	
 	@Enumerated(EnumType.STRING)
 	private TransactionTypeEnum transactionType;
 	
@@ -61,8 +63,5 @@ public class Transaction extends AbstractEntity {
 	@JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = true)
 	private PMBUser receiver;
 	
-	public Transaction() {
-		
-	}
 	
 }
