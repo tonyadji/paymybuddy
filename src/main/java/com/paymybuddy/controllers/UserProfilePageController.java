@@ -48,7 +48,7 @@ public class UserProfilePageController extends AbstractController implements Act
 	}
 
 	@PostMapping("/profile/account-deposit")
-	public ModelAndView handleRegistration(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_DEPOSIT_FORM) AccountDepositForm form,
+	public ModelAndView handleDeposit(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_DEPOSIT_FORM) AccountDepositForm form,
 			BindingResult bindingResult) {
 		
 		log.debug("[POST] /profile");

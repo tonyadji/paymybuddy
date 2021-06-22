@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import com.paymybuddy.entities.PMBUser;
 
@@ -31,7 +32,7 @@ public class SecurityUtils {
 
 	public static String getAuthUserName() {
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return auth == null? "ANONYMOUS":auth.getName();
+		return auth instanceof AnonymousAuthenticationToken? "ANONYMOUS":((User) auth.getPrincipal()).getUsername();
 	}
 	
 	public static boolean isAuthenticated() {
@@ -48,7 +49,7 @@ public class SecurityUtils {
 		final Collection<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 		securityContext.setAuthentication(
-				new UsernamePasswordAuthenticationToken(user.getUsername(), null, authorities)
+				new UsernamePasswordAuthenticationToken(user, null, authorities)
 		);
 	}
 }

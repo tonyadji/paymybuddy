@@ -18,7 +18,7 @@
 	<th:block th:include="fragments/common/menu-bar::menu-bar"></th:block>
 	<div class="container">
 
-		<h2 class="mt-4">Welcome HOME</h2>
+		<h2 class="mt-4">Welcome <th:block sec:authentication="principal.username"></th:block> </h2>
 		<hr />
 		<div class="row">
 			<div class="col-sm-6">
