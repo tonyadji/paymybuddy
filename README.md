@@ -7,4 +7,4 @@
 
 **Physical Data Model**
 
-![UML Class Diagram](src/main/resources/static/MPD_PAYMYBUDDY.PNG)
+![UML Class Diagram](src/main/resources/static/MPD_PAY_MYBUDDY.PNG)
