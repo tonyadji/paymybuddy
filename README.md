@@ -3,8 +3,8 @@
 
 **UML Class Diagram**
 
-![UML Class Diagram](src/main/resources/static/UMLCLASS_PAYMYBUDDY.PNG)
+![UML Class Diagram](src/main/resources/static/P6_02_diagrammeUML.PNG)
 
 **Physical Data Model**
 
-![UML Class Diagram](src/main/resources/static/MPD_PAY_MYBUDDY.PNG)
+![UML Class Diagram](src/main/resources/static/P6_03_modelePhysique.PNG)

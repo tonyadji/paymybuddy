@@ -1,9 +1,3 @@
--- --------------------------------------------------------
--- Hôte :                        127.0.0.1
--- Version du serveur:           8.0.22 - MySQL Community Server - GPL
--- SE du serveur:                Win64
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
