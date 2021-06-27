@@ -41,16 +41,16 @@ public class UserContactPageController extends AbstractController implements Act
 		this.userContactService = userContactService;
 	}
 	
-	@GetMapping("/contact")
+	@GetMapping("/my/contact")
 	public ModelAndView getUserContactPage() {
 		return super.getRequest();
 	}
 
-	@PostMapping("/contact")
+	@PostMapping("/my/contact")
 	public ModelAndView handleRegistration(@Valid @ModelAttribute(ModelUtils.MODEL_CONTACT_FORM) ContactForm form,
 			BindingResult bindingResult) {
 		
-		log.debug("[POST] /contact");
+		log.debug("[POST] /my/contact");
 		
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
@@ -63,7 +63,7 @@ public class UserContactPageController extends AbstractController implements Act
 			return super.getRequest();
 		}
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/contact");
+		redirectView.setUrl("/my/contact");
 		return new ModelAndView(redirectView);
 	}
 	

@@ -50,17 +50,17 @@ public class UserTransferPageController extends AbstractController implements Ac
 		this.transactionService = transactionService;
 	}
 	
-	@GetMapping("/transfer")
+	@GetMapping("/my/transfer")
 	public ModelAndView getUserProfilePage() {
-		log.debug("[GET] /transfer");
+		log.debug("[GET] /my/transfer");
 		return super.getRequest();
 	}
 
-	@PostMapping("/transfer/to-contact")
+	@PostMapping("/my/transfer/to-contact")
 	public ModelAndView handleTranferToContact(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_TRANSFER_FORM) TransferToAccountForm form,
 			BindingResult bindingResult) {
 		
-		log.debug("[POST] /transfer/to-contact");
+		log.debug("[POST] /my/transfer/to-contact");
 		
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
@@ -76,15 +76,15 @@ public class UserTransferPageController extends AbstractController implements Ac
 		}		
 		
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/transfer");
+		redirectView.setUrl("/my/transfer");
 		return new ModelAndView(redirectView);
 	}
 	
-	@PostMapping("/transfer/to-bank-account")
+	@PostMapping("/my/transfer/to-bank-account")
 	public ModelAndView handleTransferToBankAccount(@Valid @ModelAttribute(ModelUtils.MODEL_BANK_ACCOUNT_TRANSFER_FORM) TransferToBankAccountForm form,
 			BindingResult bindingResult) {
 		
-		log.debug("[POST] /transfer/to-bank-account");
+		log.debug("[POST] /my/transfer/to-bank-account");
 		
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
@@ -101,7 +101,7 @@ public class UserTransferPageController extends AbstractController implements Ac
 		}
 		
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/transfer");
+		redirectView.setUrl("/my/transfer");
 		return new ModelAndView(redirectView);
 	}
 	

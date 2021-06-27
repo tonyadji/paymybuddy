@@ -19,7 +19,7 @@ import com.paymybuddy.utils.ViewUtils;
 @Controller
 public class UserHomePageController extends AbstractController implements ActiveMenuController{
 	
-	@GetMapping("/home")
+	@GetMapping("/my/home")
 	public ModelAndView getUserHomePage() {
 		return super.getRequest();
 	}

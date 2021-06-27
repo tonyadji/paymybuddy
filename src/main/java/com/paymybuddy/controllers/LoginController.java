@@ -22,7 +22,7 @@ public class LoginController extends AbstractController {
 	public ModelAndView getLoginPage() {
 		if(SecurityUtils.isAuthenticated()) {
 			RedirectView redirectView = new RedirectView();
-			redirectView.setUrl("/home");
+			redirectView.setUrl("/my/home");
 			return new ModelAndView(redirectView);
 		}
 		return super.getRequest();

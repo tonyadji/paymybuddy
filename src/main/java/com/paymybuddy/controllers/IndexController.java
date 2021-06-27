@@ -21,7 +21,7 @@ public class IndexController extends AbstractController {
 	@GetMapping("/")
 	public ModelAndView getLoginPage() {
 		if(SecurityUtils.isAuthenticated()) {
-			RedirectView rv = new RedirectView("/home");
+			RedirectView rv = new RedirectView("/my/home");
 			return new ModelAndView(rv);
 		}
 		return super.getRequest();

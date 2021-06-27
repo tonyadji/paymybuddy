@@ -41,17 +41,17 @@ public class UserProfilePageController extends AbstractController implements Act
 		this.accountService = accountService;
 	}
 	
-	@GetMapping("/profile")
+	@GetMapping("/my/profile")
 	public ModelAndView getUserProfilePage() {
-		log.debug("[GET] /profile");
+		log.debug("[GET] /my/profile");
 		return super.getRequest();
 	}
 
-	@PostMapping("/profile/account-deposit")
+	@PostMapping("/my/profile/account-deposit")
 	public ModelAndView handleDeposit(@Valid @ModelAttribute(ModelUtils.MODEL_ACCOUNT_DEPOSIT_FORM) AccountDepositForm form,
 			BindingResult bindingResult) {
 		
-		log.debug("[POST] /profile");
+		log.debug("[POST] /my/profile");
 		
 		if(bindingResult.hasErrors()) {
 			return super.getRequest();
@@ -64,7 +64,7 @@ public class UserProfilePageController extends AbstractController implements Act
 		}		
 		
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/profile");
+		redirectView.setUrl("/my/profile");
 		return new ModelAndView(redirectView);
 	}
 	

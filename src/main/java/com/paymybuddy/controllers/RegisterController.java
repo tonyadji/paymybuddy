@@ -67,7 +67,7 @@ public class RegisterController extends AbstractController {
 			return super.getRequest();
 		}
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/home");
+		redirectView.setUrl("/my/home");
 		return new ModelAndView(redirectView);
 	}
 
