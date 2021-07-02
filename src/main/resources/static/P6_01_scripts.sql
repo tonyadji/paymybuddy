@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `pmb_account` (
   CONSTRAINT `FKcp887hg8arxaw3seaklp79k2j` FOREIGN KEY (`owner_id`) REFERENCES `pmb_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table pay_my_buddy. pmb_transaction
 CREATE TABLE IF NOT EXISTS `pmb_transaction` (
@@ -49,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `pmb_transaction` (
   CONSTRAINT `FKam2mau54eex6cmu10oickgwwj` FOREIGN KEY (`initiator_id`) REFERENCES `pmb_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table pay_my_buddy. pmb_user
 CREATE TABLE IF NOT EXISTS `pmb_user` (
@@ -64,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `pmb_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de la table pay_my_buddy. pmb_user_contact
 CREATE TABLE IF NOT EXISTS `pmb_user_contact` (
@@ -78,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `pmb_user_contact` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
