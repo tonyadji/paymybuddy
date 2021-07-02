@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.paymybuddy.controllers.interfaces.ActiveMenuController;
 import com.paymybuddy.entities.UserContact;
 import com.paymybuddy.exceptions.ContactAlreadyExistsException;
+import com.paymybuddy.exceptions.SelfContactException;
 import com.paymybuddy.exceptions.UserNotFoundException;
 import com.paymybuddy.services.UserContactService;
 import com.paymybuddy.ui.form.ContactForm;
@@ -58,7 +59,7 @@ public class UserContactPageController extends AbstractController implements Act
 		
 		try {
 			userContactService.createUserContact(SecurityUtils.getAuthUserName(), form.getUsername());
-		}catch (UserNotFoundException | ContactAlreadyExistsException e) {
+		}catch (SelfContactException | UserNotFoundException | ContactAlreadyExistsException e) {
 			bindingResult.rejectValue("username", "", e.getMessage());
 			return super.getRequest();
 		}

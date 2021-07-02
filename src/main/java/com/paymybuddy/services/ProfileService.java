@@ -16,23 +16,38 @@ import com.paymybuddy.repositories.UserContactRepository;
 import com.paymybuddy.ui.ProfilUI;
 import com.paymybuddy.utils.SecurityUtils;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author tonys
+ * The Class ProfileService.
  *
+ * @author tonys
  */
 @Service
 @Transactional
 public class ProfileService {
 
+	/** The user contact repository. */
 	private UserContactRepository userContactRepository;
 
+	/** The account repository. */
 	private AccountRepository accountRepository;
 
+	/**
+	 * Instantiates a new profile service.
+	 *
+	 * @param userContactRepository the user contact repository
+	 * @param accountRepository the account repository
+	 */
 	public ProfileService(UserContactRepository userContactRepository, AccountRepository accountRepository) {
 		this.userContactRepository = userContactRepository;
 		this.accountRepository = accountRepository;
 	}
 
+	/**
+	 * Gets the profile informations.
+	 *
+	 * @return the profile informations
+	 */
 	public ProfilUI getProfileInformations() {
 		final ProfilUI informations = new ProfilUI();
 		final String username = SecurityUtils.getAuthUserName();

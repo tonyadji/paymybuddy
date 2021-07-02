@@ -16,19 +16,34 @@ import org.springframework.stereotype.Service;
 
 import com.paymybuddy.entities.PMBUser;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author tonys
+ * The Class UserDetailsServiceImpl.
  *
+ * @author tonys
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	/** The user service. */
 	private final PMBUserService userService;
 	
+	/**
+	 * Instantiates a new user details service impl.
+	 *
+	 * @param userService the user service
+	 */
 	public UserDetailsServiceImpl(PMBUserService userService) {
 		this.userService = userService;
 	}
 	
+	/**
+	 * Load user by username.
+	 *
+	 * @param username the username
+	 * @return the user details
+	 * @throws UsernameNotFoundException the username not found exception
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		final PMBUser user = userService.findByUsername(username);

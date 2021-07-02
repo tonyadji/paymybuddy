@@ -59,9 +59,7 @@ public class Transaction extends AbstractEntity {
 	@JoinColumn(name = "initiator_id", referencedColumnName = "id", nullable = false)
 	private PMBUser initiator;
 	
-	@ManyToOne
-	@JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = true)
-	private PMBUser receiver;
+	private String receiver;
 	
 	
 }

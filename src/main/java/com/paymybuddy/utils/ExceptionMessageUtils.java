@@ -17,4 +17,5 @@ public class ExceptionMessageUtils {
 	public static final String ACCOUNT_NOT_FOUND = "Account not found";
 	public static final String INVALID_AMOUNT = "Invalid amount";
 	public static final String INSUFFICIENT_BALANCE = "Insufficient Balance";
+	public static final String CANT_BE_SELF_CONTACT = "You can't add yourself as a contact";
 }

@@ -60,7 +60,7 @@
 			<tbody>
 				<tr th:each="contact :${my_contacts}">
 		            <td th:text="${contact.added}">Name</td>
-		            <td th:text="${contact.createdDate}">Date</td>
+		            <td th:text="${#temporals.format(contact.createdDate, 'dd-MM-yyyy HH:mm')}">Date</td>
 				</tr>
 				
 			</tbody>

@@ -30,7 +30,7 @@
             <div class = "form-group row ">
                <label for = "username" class = "col-sm-2 col-form-label">Username</label>
                <div class = "col-sm-4">
-                  <input th:field="*{username}" type = "text" class = "form-control" placeholder = "Username">
+                  <input th:field="*{username}" type = "text" maxlength="50" class = "form-control" placeholder = "Username">
                </div>
                <div class="col-sm-4">
         			<span class="text-danger" th:errors="*{username}"> </span>      

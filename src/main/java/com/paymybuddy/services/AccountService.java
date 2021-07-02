@@ -22,18 +22,32 @@ import com.paymybuddy.utils.GenerateCodeUtils;
 import com.paymybuddy.utils.SecurityUtils;
 import com.paymybuddy.utils.TransactionFeeUtils;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author tonys
+ * The Class AccountService.
  *
+ * @author tonys
  */
 @Service
 @Transactional
 public class AccountService {
 
+	/** The account repository. */
 	private final AccountRepository accountRepository;
+	
+	/** The transaction repository. */
 	private final TransactionRepository transactionRepository;
+	
+	/** The user repository. */
 	private final PMBUserRepository userRepository;
 
+	/**
+	 * Instantiates a new account service.
+	 *
+	 * @param accountRepository the account repository
+	 * @param transactionRepository the transaction repository
+	 * @param userRepository the user repository
+	 */
 	public AccountService(AccountRepository accountRepository, TransactionRepository transactionRepository,
 			PMBUserRepository userRepository) {
 		this.accountRepository = accountRepository;
@@ -41,6 +55,11 @@ public class AccountService {
 		this.userRepository = userRepository;
 	}
 
+	/**
+	 * Deposit in my own account.
+	 *
+	 * @param amount the amount
+	 */
 	public void deposit(BigDecimal amount) {
 		//si le montant est négatif, lever une exception
 		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
@@ -61,12 +80,19 @@ public class AccountService {
 			transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
 			transaction.setReference(GenerateCodeUtils.generateCode());
 			transaction.setComission(comission);
+			transaction.setReceiver(username);
 			transactionRepository.save(transaction);
 			return;
 		}
 		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
 	}
 
+	/**
+	 * Transfer to another user of the app.
+	 *
+	 * @param receiverUsername the receiver username
+	 * @param amount the amount
+	 */
 	public void transfer(String receiverUsername, BigDecimal amount) {
 		//si le montant est négatif, lever une exception
 		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
@@ -92,7 +118,7 @@ public class AccountService {
 					transaction.setInitiator(userRepository.findByUsername(username).orElse(null));
 					transaction.setReference(GenerateCodeUtils.generateCode());
 					transaction.setComission(comission);
-					transaction.setReceiver(userRepository.findByUsername(receiverUsername).orElse(null));
+					transaction.setReceiver(receiverUsername);
 					transactionRepository.save(transaction);
 					return;
 				}
@@ -103,6 +129,12 @@ public class AccountService {
 		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
 	}
 
+	/**
+	 * Bank transfer.
+	 *
+	 * @param bankAccount the bank account
+	 * @param amount the amount
+	 */
 	public void bankTransfer(String bankAccount, BigDecimal amount) {
 		//si le montant est négatif, lever une exception
 		if (amount.compareTo(BigDecimal.ZERO) <= 0)	throw new IllegalArgumentException(ExceptionMessageUtils.INVALID_AMOUNT);
@@ -122,6 +154,7 @@ public class AccountService {
 				transaction.setReference(GenerateCodeUtils.generateCode());
 				transaction.setComission(comission);
 				transaction.setDescription(TransactionTypeEnum.BANK_TRANSFER+" to "+bankAccount);
+				transaction.setReceiver(bankAccount);
 				transactionRepository.save(transaction);
 				return;
 			}
@@ -130,6 +163,12 @@ public class AccountService {
 		throw new AccountNotFoundException(ExceptionMessageUtils.ACCOUNT_NOT_FOUND);
 	}
 
+	/**
+	 * Calculate comission.
+	 *
+	 * @param amount the amount
+	 * @return the big decimal
+	 */
 	public BigDecimal calculateComission(BigDecimal amount) {
 		return amount.multiply(TransactionFeeUtils.TRANSACTION_FEES).divide(BigDecimal.valueOf(100));
 	}

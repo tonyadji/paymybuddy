@@ -32,4 +32,6 @@ public class ModelUtils {
 	public static final String MODEL_MY_TRANSACTIONS = "my_transactions";
 
 	public static final String MODEL_BANK_ACCOUNT_TRANSFER_FORM = "bank_transfer_form";
+
+	public static final String MODEL_MY_PAGINATED_TRANSACTIONS = "my_paginated_transactions";
 }
